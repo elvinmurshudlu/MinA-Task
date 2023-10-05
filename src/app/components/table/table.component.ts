@@ -2,6 +2,7 @@ import {AfterViewInit, Component, ElementRef, OnChanges, OnInit, SimpleChanges, 
 import {Tabulator as TypeTabulator, TabulatorFull as Tabulator,ColumnDefinition} from 'tabulator-tables';
 import * as XLSX from 'xlsx';
 import {IData, IModifyData} from "../../Interfaces/Interface";
+import {ModalComponent} from "../modal/modal.component";
 
 @Component({
   selector: 'mina-table',
@@ -10,9 +11,12 @@ import {IData, IModifyData} from "../../Interfaces/Interface";
 })
 export class TableComponent implements AfterViewInit{
   @ViewChild('table') table !: ElementRef
+@ViewChild(ModalComponent,{static:false}) childrenModal !:ModalComponent
+
 
   tabulatorTable !:TypeTabulator
 
+  modalData:IData = {id:1,len:'',wkt:'',status:null}
   geoMapIcon = function(){
     return "<i class='pi pi-map-marker'></i>";
   };
@@ -37,12 +41,18 @@ export class TableComponent implements AfterViewInit{
       }},
     {title:'',formatter:this.editIcon, width:40, hozAlign:"center",cellClick:(e,cell)=>{
         // console.log(cell.getRow().getData().name)
-        // console.log(cell.getRow().getIndex())
+        console.log(cell.getRow().getIndex(),cell.getRow().getData())
+
+
+          this.modalData = cell.getRow().getData()
+          this.childrenModal.testFunction()
 
       }},
   ]
 
   data :IData[] = []
+
+
 
 
   onFileChange(event: any) {
@@ -64,10 +74,10 @@ export class TableComponent implements AfterViewInit{
 
   addRow(event:IModifyData){
     if(event.status == 'new'){
+      const lastData  = this.tabulatorTable.getData()[0] as IData
+      event.data.id = (lastData?.id || 0) +1
       this.tabulatorTable.addRow(event.data,true)
-
     }
-
 
   }
 
@@ -83,9 +93,6 @@ export class TableComponent implements AfterViewInit{
 
   }
 
-  edit(){
-    this.tabulatorTable.updateData([{id:500,len:8.1774698606164,status:0,wkt:"LINESTRING(50.3292096568498 40.400225120066125,50.329304682748955 40.40023718100184)"},{id:500,len:999999999,status:0,wkt:"test"}])
-  }
 
   ngAfterViewInit() {
     this.generateTable()

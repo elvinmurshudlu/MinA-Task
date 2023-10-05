@@ -10,11 +10,11 @@
 
     <form [formGroup]="formGroup">
       <label >Len bilgisini giriniz <br>
-        <input formControlName="len" type="text">
+        <input [formControlName]="'len'" type="text">
       </label>
       <br>
       <label >Status seçiniz <br>
-        <ngx-bootstrap-multiselect [formControlName]="'status'" [settings]="selectSettings" [options]="myOptions" [(ngModel)]="optionsModel" (ngModelChange)="onChange()"></ngx-bootstrap-multiselect>
+        <ngx-bootstrap-multiselect [formControlName]="'status'" [settings]="selectSettings" [options]="myOptions"  ></ngx-bootstrap-multiselect>
 
       </label>
     </form>
@@ -26,6 +26,6 @@
   </div>
 </ng-template>
 
-<button  (click)="open(content)">Add New Data</button>
+<button  (click)="open()">Add New Data</button>
 
 

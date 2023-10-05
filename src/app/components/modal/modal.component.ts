@@ -1,73 +1,76 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild} from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output, SimpleChanges,
+  TemplateRef,
+  ViewChild
+} from '@angular/core';
 import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
 import {IMultiSelectOption, IMultiSelectSettings} from "ngx-bootstrap-multiselect";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {IData} from "../../Interfaces/Interface";
 
 @Component({
   selector: 'mina-modal',
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss']
 })
-export class ModalComponent implements OnInit{
-  @Input() lastIndex :number = 0
+export class ModalComponent implements OnChanges{
+
+  initialData = {id:0,status:null,len:''}
+
+  @Input() data :IData = this.initialData
   @Output() onAddData = new EventEmitter()
+  @ViewChild('content') content !: TemplateRef<any>
 
   modalRef !:NgbModalRef
 
-  formGroup = new FormGroup({
-    'len':new FormControl('',[Validators.required]),
-    'status':new FormControl({},[Validators.required])
-  })
+  formGroup !: FormGroup
+
+  myOptions : IMultiSelectOption[] =[
+    { id: 0, name: '0' },
+    { id: 1, name: '1' },
+    { id: 2, name: '2' },
+  ]
+
+  ngOnChanges(changes: SimpleChanges) {
+    this.formGroup = new FormGroup({
+      'len':new FormControl(this.data.len,[Validators.required]),
+      'status':new FormControl(this.data.status === null ? {} : this.data.status,[Validators.required])
+    })
+  }
 
   constructor(private modalService: NgbModal) {}
 
-  open(content:TemplateRef<any>) {
-    this.modalRef = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' })
-
-
+  open() {
+    this.data = this.initialData
+    this.modalRef = this.modalService.open(this.content, { ariaLabelledBy: 'modal-basic-title' })
   }
 
-
-  optionsModel !: number[];
-  myOptions !: IMultiSelectOption[];
   selectSettings : IMultiSelectSettings = {
     checkedStyle:'glyphicon',
     selectionLimit:1,
     autoUnselect:true
   }
 
-  ngOnInit() {
-    this.myOptions = [
-      { id: 1, name: '1' },
-      { id: 2, name: '2' },
-      { id: 3, name: '3' },
-    ];
-  }
-  onChange() {
-    // console.log(this.optionsModel);
-  }
-
-
   addData(){
-
     if(this.formGroup.valid){
-
-      const data :{id:any,len:any,wkt:any,status:any} = {id:600,len:'',wkt:'',status:0}
-
-      data.id = this.lastIndex +1
-      data.len = this.formGroup.value.len
-      data.status = this.formGroup.value.status
-
-      this.onAddData.emit({status:'new',data:data})
-
-      this.formGroup.value.len = ''
-      this.formGroup.value.status = {}
+      this.data.len = this.formGroup.value.len || ''
+      this.data.status = this.formGroup.value?.status || 0
+      this.onAddData.emit({status:'new',data:this.data})
       this.modalRef.close()
-      this.formGroup.setValue({len: '',status: {}})
-
-
+      this.formGroup.setValue({len: '',status: null})
     }
 
+  }
+
+
+  testFunction(){
+    this.open()
   }
 
 }

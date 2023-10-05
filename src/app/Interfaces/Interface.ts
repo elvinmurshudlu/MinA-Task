@@ -1,12 +1,12 @@
 export interface IModifyData{
   status:"new" | "modify",
-  data:any
+  data:IData
 }
 
 
 export interface IData {
-  id:number,
-  len:string,
-  wkt:string,
-  status:number
+  id  :number,
+  len ?:string,
+  wkt ?:string,
+  status :number |null | undefined
 }

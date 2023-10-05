@@ -1,7 +1,7 @@
 <div>
 
     <input type="file" (change)="onFileChange($event)" accept=".xlsx">
-  <mina-modal [lastIndex]="tabulatorTable?.getDataCount() || 0" (onAddData)="addRow($event)"></mina-modal>
+  <mina-modal  [data]="modalData" (onAddData)="addRow($event)"></mina-modal>
 
 
     <div #table>
