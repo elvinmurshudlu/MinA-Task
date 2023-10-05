@@ -7,14 +7,14 @@ import { ModalComponent } from './components/modal/modal.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {NgxBootstrapMultiselectModule} from "ngx-bootstrap-multiselect";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import { MapComponent } from './map/map.component';
+import { MapComponent } from './components/map/map.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TableComponent,
     ModalComponent,
-    MapComponent
+    MapComponent,
   ],
   imports: [
     BrowserModule,
