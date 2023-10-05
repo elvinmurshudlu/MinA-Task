@@ -9,6 +9,7 @@ import {NgxBootstrapMultiselectModule} from "ngx-bootstrap-multiselect";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { MapComponent } from './components/map/map.component';
 import {MapService} from "./services/map.service";
+import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import {MapService} from "./services/map.service";
     TableComponent,
     ModalComponent,
     MapComponent,
+    PieChartComponent,
   ],
   imports: [
     BrowserModule,

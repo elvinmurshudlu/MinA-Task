@@ -10,7 +10,7 @@ import {MapService} from "../../services/map.service";
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss']
 })
-export class TableComponent implements AfterViewInit{
+export class TableComponent implements AfterViewInit {
   @ViewChild('table') table !: ElementRef
   @ViewChild(ModalComponent,{static:false}) childrenModal !:ModalComponent
 
@@ -41,8 +41,6 @@ export class TableComponent implements AfterViewInit{
 
       }},
     {title:'',formatter:this.editIcon, width:40, hozAlign:"center",cellClick:(e,cell)=>{
-        // console.log(cell.getRow().getData().name)
-        console.log(cell.getRow().getIndex(),cell.getRow().getData())
 
 
           this.modalData = cell.getRow().getData()
@@ -92,15 +90,27 @@ export class TableComponent implements AfterViewInit{
       paginationSizeSelector:[8, 10,15,20],
     });
 
+
+
+
+
   }
+
+
 
 
   ngAfterViewInit() {
     this.generateTable()
+
   }
 
 
   constructor(private  mapService:MapService) {
+  }
+
+  currentData(){
+    console.log(this.tabulatorTable.getData('visible'))
+
   }
 
 
