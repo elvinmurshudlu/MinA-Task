@@ -1,0 +1,31 @@
+<ng-template #content >
+  <div class="modal-header">
+    <div>
+      <h3 class="modal-title" id="modal-basic-title">Baslik</h3>
+      <h6>Alt Tanımlama</h6>
+    </div>
+  </div>
+  <div class="modal-body">
+
+
+    <form [formGroup]="formGroup">
+      <label >Len bilgisini giriniz <br>
+        <input formControlName="len" type="text">
+      </label>
+      <br>
+      <label >Status seçiniz <br>
+        <ngx-bootstrap-multiselect [formControlName]="'status'" [settings]="selectSettings" [options]="myOptions" [(ngModel)]="optionsModel" (ngModelChange)="onChange()"></ngx-bootstrap-multiselect>
+
+      </label>
+    </form>
+
+
+  </div>
+  <div class="modal-footer">
+      <button (click)="addData()">Add data</button>
+  </div>
+</ng-template>
+
+<button  (click)="open(content)">Add New Data</button>
+
+
