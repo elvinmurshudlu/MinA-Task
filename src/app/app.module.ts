@@ -8,6 +8,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {NgxBootstrapMultiselectModule} from "ngx-bootstrap-multiselect";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { MapComponent } from './components/map/map.component';
+import {MapService} from "./services/map.service";
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { MapComponent } from './components/map/map.component';
     ReactiveFormsModule
 
   ],
-  providers: [],
+  providers: [MapService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
