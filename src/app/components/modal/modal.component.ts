@@ -5,7 +5,7 @@ import {
   Input,
   OnChanges,
   OnInit,
-  Output, SimpleChanges,
+  Output,
   TemplateRef,
   ViewChild
 } from '@angular/core';
@@ -20,10 +20,7 @@ import {IData} from "../../Interfaces/Interface";
   styleUrls: ['./modal.component.scss']
 })
 export class ModalComponent implements OnChanges{
-
-  initialData = {id:0,status:null,len:''}
-
-  @Input() data :IData = this.initialData
+  @Input() data :IData  = {id:0,status:null,len:''}
   @Output() onAddData = new EventEmitter()
   @ViewChild('content') content !: TemplateRef<any>
 
@@ -37,17 +34,19 @@ export class ModalComponent implements OnChanges{
     { id: 2, name: '2' },
   ]
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges() {
     this.formGroup = new FormGroup({
       'len':new FormControl(this.data.len,[Validators.required]),
-      'status':new FormControl(this.data.status === null ? {} : this.data.status,[Validators.required])
+      'status':new FormControl(this.data.status == null ? {} : this.data.status,[Validators.required])
     })
   }
+
+
+
 
   constructor(private modalService: NgbModal) {}
 
   open() {
-    this.data = this.initialData
     this.modalRef = this.modalService.open(this.content, { ariaLabelledBy: 'modal-basic-title' })
   }
 

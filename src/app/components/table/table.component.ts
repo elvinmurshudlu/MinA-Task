@@ -74,6 +74,7 @@ export class TableComponent implements AfterViewInit{
 
   addRow(event:IModifyData){
     if(event.status == 'new'){
+      console.log(event   )
       const lastData  = this.tabulatorTable.getData()[0] as IData
       event.data.id = (lastData?.id || 0) +1
       this.tabulatorTable.addRow(event.data,true)
