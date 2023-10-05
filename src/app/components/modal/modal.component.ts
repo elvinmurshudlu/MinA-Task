@@ -50,7 +50,8 @@ export class ModalComponent implements OnChanges{
   selectSettings : IMultiSelectSettings = {
     checkedStyle:'glyphicon',
     selectionLimit:1,
-    autoUnselect:true
+    autoUnselect:true,
+    closeOnSelect:true
   }
 
   addData(){
