@@ -3,6 +3,7 @@ import {Tabulator as TypeTabulator, TabulatorFull as Tabulator,ColumnDefinition}
 import * as XLSX from 'xlsx';
 import {IData, IModifyData} from "../../Interfaces/Interface";
 import {ModalComponent} from "../modal/modal.component";
+import {MapService} from "../../services/map.service";
 
 @Component({
   selector: 'mina-table',
@@ -31,7 +32,8 @@ export class TableComponent implements AfterViewInit{
     {title:'wkt',field:'wkt',headerFilter:'input'},
     {title:'status',field:'status',headerFilter:'input'},
     {title:"",formatter:this.geoMapIcon, width:40, hozAlign:"center",cellClick:(e,cell)=>{
-        // console.log(cell.getRow().getIndex())
+        // console.log(cell.getRow().getData()['wkt'])
+        this.mapService.changeWkt(cell.getRow().getData()['wkt'])
 
       }},
     {title:'',formatter:this.deleteIcon, width:40, hozAlign:"center",cellClick:(e,cell)=>{
@@ -96,5 +98,10 @@ export class TableComponent implements AfterViewInit{
   ngAfterViewInit() {
     this.generateTable()
   }
+
+
+  constructor(private  mapService:MapService) {
+  }
+
 
 }

@@ -1,4 +1,14 @@
-import {AfterViewInit, Component, ElementRef, Input, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+  TemplateRef,
+  ViewChild
+} from '@angular/core';
 import Map from 'ol/Map.js';
 import View from 'ol/View.js';
 import WKT from 'ol/format/WKT.js';
@@ -8,15 +18,15 @@ import {fromLonLat} from 'ol/proj.js';
 import {getCenter} from "ol/extent"
 import {Feature} from "ol";
 import {Geometry} from "ol/geom";
+import {MapService} from "../../services/map.service";
 
 @Component({
   selector: 'mina-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements AfterViewInit{
+export class MapComponent implements AfterViewInit , OnInit  {
   @ViewChild('move') mapContainer !:ElementRef
-  @Input() wkt :string = 'LINESTRING(50.32489718460863 40.3897112495751,50.32500619720577 40.39007045577375)\n'
 
   raster !: TileLayer<OSM>
   format !: WKT
@@ -26,18 +36,26 @@ export class MapComponent implements AfterViewInit{
   view !:View
   map !: Map
 
-  ngAfterViewInit() {
-
-      this.generateWtk()
-
+  constructor(private mapService : MapService) {
   }
 
 
-  private generateWtk(){
-      this.view = new View({
-        center: this.baku,
-        zoom: 12,
-      });
+
+
+  ngOnInit() {
+    this.mapService.wktCoordinates.subscribe(wkt=>{
+
+      this.renderWtkAndFly(wkt)
+
+    })
+
+  }
+
+  ngAfterViewInit() {
+    this.view = new View({
+      center: this.baku,
+      zoom: 12,
+    });
 
     this.map = new Map({
       layers: [
@@ -49,15 +67,23 @@ export class MapComponent implements AfterViewInit{
       view: this.view
     });
 
-    if(this.wkt != ''){
-this.map.dispose()
+
+
+
+  }
+
+
+  private renderWtkAndFly(wkt:string){
+
+
+    if(wkt != ''){
 
       this.raster = new TileLayer({
         source: new OSM(),
       });
       this.format = new WKT();
 
-      this.feature = this.format.readFeature(this.wkt, {
+      this.feature = this.format.readFeature(wkt, {
         dataProjection: 'EPSG:4326',
         featureProjection: 'EPSG:3857',
       });
@@ -68,23 +94,14 @@ this.map.dispose()
         }),
       });
 
-      this.view = new View({
-        center: this.baku,
-        zoom: 12,
-      });
+      this.map.addLayer(this.vector)
 
-
-      this.map = new Map({
-        layers: [this.raster, this.vector],
-        target: this.mapContainer.nativeElement,
-        view: this.view
-      });
+      this.flyTo()
     }
-
   }
 
 
-  flyTo(){
+  private flyTo(){
     const zoom = this.view.getZoom() ||12;
     const duration = 2000;
     const extent = this.feature?.getGeometry()?.getExtent()
