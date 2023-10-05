@@ -86,12 +86,15 @@ export class MapComponent implements AfterViewInit , OnInit  {
       this.feature = this.format.readFeature(wkt, {
         dataProjection: 'EPSG:4326',
         featureProjection: 'EPSG:3857',
+
       });
 
       this.vector = new VectorLayer({
         source: new VectorSource({
           features: [this.feature],
+
         }),
+
       });
 
       this.map.addLayer(this.vector)
@@ -109,11 +112,11 @@ export class MapComponent implements AfterViewInit , OnInit  {
     if(extent){
       this.view.animate(
         {
-          zoom: zoom - 2,
+          zoom: zoom - 4,
           duration: duration ,
         }
         ,()=>{
-          this.map.getView().fit(extent, { padding: [10, 10, 10, 10],duration:duration  });
+          this.map.getView().fit(extent, { padding: [10, 10, 10, 10],duration:duration *2  });
 
         }
       )

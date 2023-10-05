@@ -88,8 +88,8 @@ export class TableComponent implements AfterViewInit{
       importFormat:"array",
       columns:this.columns,
       pagination:true,
-      paginationSize:6,
-      paginationSizeSelector:[ 6, 8, 10,15,20],
+      paginationSize:8,
+      paginationSizeSelector:[8, 10,15,20],
     });
 
   }
