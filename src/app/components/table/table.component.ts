@@ -16,7 +16,7 @@ export class TableComponent implements AfterViewInit{
 
   tabulatorTable !:TypeTabulator
 
-  modalData:IData = {id:1,len:'',wkt:'',status:null}
+  modalData:IData | null = null
   geoMapIcon = function(){
     return "<i class='pi pi-map-marker'></i>";
   };
@@ -73,12 +73,21 @@ export class TableComponent implements AfterViewInit{
 
 
   addRow(event:IModifyData){
+
+    console.log(event.status)
     if(event.status == 'new'){
-      console.log(event   )
+      console.log(event   ,'nskdfjsldc')
       const lastData  = this.tabulatorTable.getData()[0] as IData
       event.data.id = (lastData?.id || 0) +1
       this.tabulatorTable.addRow(event.data,true)
+    }else if(event.status == 'modify' && this.modalData){
+      const olderData = this.modalData
+      const newData = {...event.data}
+
+      this.tabulatorTable.updateData([olderData,newData])
     }
+
+    this.modalData = null
 
   }
 
