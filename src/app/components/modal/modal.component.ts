@@ -37,7 +37,7 @@ export class ModalComponent implements OnChanges{
   ngOnChanges() {
     this.formGroup = new FormGroup({
       'len':new FormControl(this.data ===null ? '' :this.data.len,[Validators.required]),
-      'status':new FormControl(this.data ===null ? {} : this.data.status,[Validators.required])
+      'status':new FormControl(this.data ===null ? null : this.data.status,[Validators.required])
     })
   }
 
@@ -55,17 +55,13 @@ export class ModalComponent implements OnChanges{
 
   addData(){
     if(this.formGroup.valid){
-
       const newData = this.data === null ?  {id:0,len:'',wkt:'',status: 0} : {...this.data}
       newData.len = this.formGroup.value.len
       newData.status = this.formGroup.value.status
-      this.onAddData.emit({status:this.data === null ? 'new' : 'modify',data:newData})
+      this.onAddData.emit(newData)
       this.modalRef.close()
       this.formGroup.setValue({len: '',status: null})
-
-
     }
-
   }
 
 

@@ -11,8 +11,7 @@ import {ModalComponent} from "../modal/modal.component";
 })
 export class TableComponent implements AfterViewInit{
   @ViewChild('table') table !: ElementRef
-@ViewChild(ModalComponent,{static:false}) childrenModal !:ModalComponent
-
+  @ViewChild(ModalComponent,{static:false}) childrenModal !:ModalComponent
 
   tabulatorTable !:TypeTabulator
 
@@ -51,10 +50,6 @@ export class TableComponent implements AfterViewInit{
   ]
 
   data :IData[] = []
-
-
-
-
   onFileChange(event: any) {
     const file = event.target.files[0];
     if (file) {
@@ -72,23 +67,17 @@ export class TableComponent implements AfterViewInit{
   }
 
 
-  addRow(event:IModifyData){
-
-    console.log(event.status)
-    if(event.status == 'new'){
-      console.log(event   ,'nskdfjsldc')
+  addRow(event:IData){
+    if(this.modalData == null){
       const lastData  = this.tabulatorTable.getData()[0] as IData
-      event.data.id = (lastData?.id || 0) +1
-      this.tabulatorTable.addRow(event.data,true)
-    }else if(event.status == 'modify' && this.modalData){
+      event.id = (lastData?.id || 0) +1
+      this.tabulatorTable.addRow(event,true)
+    }else if(this.modalData){
       const olderData = this.modalData
-      const newData = {...event.data}
-
+      const newData = {...event}
       this.tabulatorTable.updateData([olderData,newData])
     }
-
     this.modalData = null
-
   }
 
   generateTable(){
