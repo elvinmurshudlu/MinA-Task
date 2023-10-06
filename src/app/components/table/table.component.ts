@@ -79,10 +79,13 @@ export class TableComponent implements AfterViewInit {
       const lastData  = this.tabulatorTable.getData()[0] as IData
       event.id = (lastData?.id || 0) +1
       this.tabulatorTable.addRow(event,true)
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Row was added' });
     }else if(this.modalData){
       const olderData = this.modalData
       const newData = {...event}
       this.tabulatorTable.updateData([olderData,newData])
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Row was changed' });
+
     }
     this.modalData = null
   }
