@@ -1,27 +1,19 @@
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnInit,
-  Output,
-  TemplateRef,
-  ViewChild
-} from '@angular/core';
-import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
-import {IMultiSelectOption, IMultiSelectSettings} from "ngx-bootstrap-multiselect";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {IData} from "../../Interfaces/Interface";
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, TemplateRef, ViewChild} from '@angular/core';
 import {ModalService} from "../../services/modal.service";
+import {IData} from "../../Interfaces/Interface";
+import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {IMultiSelectOption, IMultiSelectSettings} from "ngx-bootstrap-multiselect";
 
 @Component({
-  selector: 'mina-modal',
-  templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.scss']
+  selector: 'mina-modal-prime',
+  templateUrl: './modal-prime.component.html',
+  styleUrls: ['./modal-prime.component.scss']
 })
-export class ModalComponent implements   OnInit{
+export class ModalPrimeComponent implements OnInit  {
   data : IData | null  = null
+
+  @Output() onAddData = new EventEmitter()
   visible: boolean = false;
   constructor(private modalServ:ModalService ) {
     this.modalServ.modalData.subscribe(data=>{
@@ -33,12 +25,25 @@ export class ModalComponent implements   OnInit{
     })
 
   }
+  showDialog() {
+    this.visible = true;
+  }
 
   ngOnInit() {
     this.modalServ.isModalOpened.subscribe(isOpen=>{
       this.visible = isOpen
     })
+
+
+
   }
+
+
+
+
+
+
+  modalRef !:NgbModalRef
 
   formGroup !: FormGroup
 
@@ -48,6 +53,12 @@ export class ModalComponent implements   OnInit{
     { id: 2, name: '2' },
   ]
 
+
+
+
+
+  open() {
+  }
 
   selectSettings : IMultiSelectSettings = {
     checkedStyle:'glyphicon',
@@ -61,9 +72,17 @@ export class ModalComponent implements   OnInit{
       const newData : IData = this.data === null ?  {id:0,len:'',wkt:'',status: 0} : {...this.data}
       newData.len = this.formGroup.value.len
       newData.status = this.formGroup.value.status
+      // this.onAddData.emit(newData)
+
       this.modalServ.sendData(newData)
+      this.modalRef.close()
       this.formGroup.setValue({len: '',status: null})
     }
+  }
+
+
+  testFunction(){
+    this.open()
   }
 
 }

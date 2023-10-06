@@ -5,6 +5,7 @@ import {IData, IModifyData} from "../../Interfaces/Interface";
 import {ModalComponent} from "../modal/modal.component";
 import {MapService} from "../../services/map.service";
 import {ChartService} from "../../services/chart.service";
+import {ModalService} from "../../services/modal.service";
 
 @Component({
   selector: 'mina-table',
@@ -13,7 +14,6 @@ import {ChartService} from "../../services/chart.service";
 })
 export class TableComponent implements AfterViewInit {
   @ViewChild('table') table !: ElementRef
-  @ViewChild(ModalComponent,{static:false}) childrenModal !:ModalComponent
 
   tabulatorTable !:TypeTabulator
 
@@ -45,7 +45,8 @@ export class TableComponent implements AfterViewInit {
 
 
           this.modalData = cell.getRow().getData()
-          this.childrenModal.testFunction()
+
+        this.modalServ.setOpen(true,cell.getRow().getData())
 
       }},
   ]
@@ -70,10 +71,7 @@ export class TableComponent implements AfterViewInit {
   }
 
 
-  testUploadFunction(event:any){
-    console.log(event.files)
 
-  }
 
   addRow(event:IData){
     if(this.modalData == null){
@@ -113,10 +111,17 @@ export class TableComponent implements AfterViewInit {
   }
 
 
-  constructor(private  mapService:MapService,private chartServ:ChartService) {
+  constructor(private  mapService:MapService,private chartServ:ChartService , private modalServ:ModalService) {
+    this.modalServ.transferredData.subscribe(data=>{
+      this.addRow(data)
+      this.modalServ.setOpen(false)
+    })
+
   }
 
-
+openModal(){
+    this.modalServ.setOpen(true)
+}
 
   analysisOne(){
     const filteredData : IData[] = this.tabulatorTable.getData('visible')

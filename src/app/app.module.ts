@@ -15,6 +15,8 @@ import {ChartService} from "./services/chart.service";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ButtonModule} from "primeng/button";
 import {FileUploadModule} from "primeng/fileupload";
+import { ModalPrimeComponent } from './components/modal-prime/modal-prime.component';
+import {DialogModule} from "primeng/dialog";
 
 @NgModule({
   declarations: [
@@ -23,6 +25,7 @@ import {FileUploadModule} from "primeng/fileupload";
     ModalComponent,
     MapComponent,
     ChartComponent,
+    ModalPrimeComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,8 @@ import {FileUploadModule} from "primeng/fileupload";
     ReactiveFormsModule,
     NgChartsModule,
     ButtonModule,
-    FileUploadModule
+    FileUploadModule,
+    DialogModule
 
   ],
   providers: [MapService,ChartService],
