@@ -1,4 +1,4 @@
-<p-dialog header="Header"  [closable]="true" [(visible)]="visible" [modal]="true" [style]="{ width: '50vw' ,height:'50vh'}" [draggable]="false" [resizable]="true">
+<p-dialog header="Header"  [closable]="false" [(visible)]="visible" [modal]="true" [style]="{ width: '30vw' ,height:'50vh'}" [draggable]="false" [resizable]="true">
   <ng-template pTemplate="header">
     <div>
       <h3 class="modal-title" id="modal-basic-title">Baslik</h3>
@@ -7,17 +7,22 @@
   </ng-template>
 
 
-  <form [formGroup]="formGroup">
-    <label >Len bilgisini giriniz <br>
-      <input [formControlName]="'len'" type="text">
-    </label>
-    <br>
-    <label >Status seçiniz <br>
-      <ngx-bootstrap-multiselect [formControlName]="'status'" [settings]="selectSettings" [options]="myOptions"  ></ngx-bootstrap-multiselect>
+  <div class="d-flex flex-column justify-content-between h-100">
+    <form [formGroup]="formGroup">
+      <label [ngStyle]="{width:'100%'}">Len bilgisini giriniz <br>
+        <input  pInputText [ngStyle]="{width:'100%'}" [formControlName]="'len'" type="text">
+      </label>
+      <br>
+      <label [ngStyle]="{width:'100%'}">Status seçiniz <br>
+        <ngx-bootstrap-multiselect  [formControlName]="'status'" [ngStyle]="{width:'100%'}" [settings]="selectSettings" [options]="myOptions"  ></ngx-bootstrap-multiselect>
 
-    </label>
-  </form>
+      </label>
+    </form>
 
 
-  <button (click)="addData()">Add data</button>
+    <div class="d-flex justify-content-end gap-2">
+      <p-button (click)="closeModal()" label="Close" styleClass="p-button-danger"></p-button>
+      <p-button (click)="addData()" [label]="data ? 'Save' : 'Add data'" styleClass="p-button-success"></p-button>
+    </div>
+  </div>
 </p-dialog>

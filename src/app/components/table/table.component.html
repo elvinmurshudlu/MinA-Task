@@ -6,9 +6,11 @@
     <div #table>
     </div>
 
-  <p-button (click)="analysisOne()" label="Analiz 1" styleClass="p-button-raised p-button-text p-button-warning"></p-button>
-  <p-button (click)="analysisTwo()" label="Analiz 2" styleClass="p-button-raised p-button-text p-button-help"></p-button>
+  <div class="d-flex gap-2 p-3">
+    <p-button (click)="analysisOne()" label="Analiz 1" styleClass="p-button-raised p-button-text p-button-warning"></p-button>
+    <p-button (click)="analysisTwo()" label="Analiz 2" styleClass="p-button-raised p-button-text p-button-help"></p-button>
+  </div>
 </div>
-
+<p-toast></p-toast>
 
 

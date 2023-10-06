@@ -6,6 +6,7 @@ import {ModalComponent} from "../modal/modal.component";
 import {MapService} from "../../services/map.service";
 import {ChartService} from "../../services/chart.service";
 import {ModalService} from "../../services/modal.service";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'mina-table',
@@ -111,7 +112,7 @@ export class TableComponent implements AfterViewInit {
   }
 
 
-  constructor(private  mapService:MapService,private chartServ:ChartService , private modalServ:ModalService) {
+  constructor(private  mapService:MapService,private chartServ:ChartService , private modalServ:ModalService,private messageService: MessageService) {
     this.modalServ.transferredData.subscribe(data=>{
       this.addRow(data)
       this.modalServ.setOpen(false)
@@ -119,12 +120,21 @@ export class TableComponent implements AfterViewInit {
 
   }
 
-openModal(){
-    this.modalServ.setOpen(true)
-}
+    openModal(){
+        this.modalServ.setOpen(true)
+    }
+
+
 
   analysisOne(){
     const filteredData : IData[] = this.tabulatorTable.getData('visible')
+
+    if(!filteredData.length) {
+      console.log("daxil oldu")
+      this.messageService.add({ severity: 'warn', summary: 'Boş cədvəl', detail: 'Cədvələ məlumat əlavə edin' });
+
+      return
+    }
 
     const counter:{[key:string]:any} = {total:0}
 
@@ -161,6 +171,13 @@ openModal(){
   }
   analysisTwo(){
     const filteredData : IData[] = this.tabulatorTable.getData('visible')
+
+    if(!filteredData.length) {
+      console.log("daxil oldu")
+      this.messageService.add({ severity: 'warn', summary: 'Boş cədvəl', detail: 'Cədvələ məlumat əlavə edin' });
+
+      return
+    }
 
     const counter:{[key:string]:any} = {}
 

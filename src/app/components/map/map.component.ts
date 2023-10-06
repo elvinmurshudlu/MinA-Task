@@ -118,7 +118,7 @@ export class MapComponent implements AfterViewInit , OnInit  {
           duration: duration ,
         }
         ,()=>{
-          this.map.getView().fit(extent, { padding: [10, 10, 10, 10],duration:duration *2  });
+          this.map.getView().fit(extent, { padding: [30, 30, 30, 30],duration:duration *2  });
 
         }
       )

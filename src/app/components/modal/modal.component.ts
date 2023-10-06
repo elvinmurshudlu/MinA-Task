@@ -14,6 +14,7 @@ import {IMultiSelectOption, IMultiSelectSettings} from "ngx-bootstrap-multiselec
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {IData} from "../../Interfaces/Interface";
 import {ModalService} from "../../services/modal.service";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'mina-modal',
@@ -23,7 +24,7 @@ import {ModalService} from "../../services/modal.service";
 export class ModalComponent implements   OnInit{
   data : IData | null  = null
   visible: boolean = false;
-  constructor(private modalServ:ModalService ) {
+  constructor(private modalServ:ModalService ,private messageService: MessageService) {
     this.modalServ.modalData.subscribe(data=>{
       this.data = data
       this.formGroup = new FormGroup({
@@ -53,7 +54,8 @@ export class ModalComponent implements   OnInit{
     checkedStyle:'glyphicon',
     selectionLimit:1,
     autoUnselect:true,
-    closeOnSelect:true
+    closeOnSelect:true,
+
   }
 
   addData(){
@@ -63,7 +65,13 @@ export class ModalComponent implements   OnInit{
       newData.status = this.formGroup.value.status
       this.modalServ.sendData(newData)
       this.formGroup.setValue({len: '',status: null})
+    }else {
+      this.messageService.add({ severity: 'error', summary: 'Tamamlanmadı', detail: 'Len və Status məlumatlarını əlavə edin' });
     }
+  }
+
+  closeModal(){
+    this.modalServ.setOpen(false)
   }
 
 }

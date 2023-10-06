@@ -15,9 +15,10 @@ import {ChartService} from "./services/chart.service";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ButtonModule} from "primeng/button";
 import {FileUploadModule} from "primeng/fileupload";
-import { ModalPrimeComponent } from './components/modal-prime/modal-prime.component';
 import {DialogModule} from "primeng/dialog";
-
+import { InputTextModule } from 'primeng/inputtext';
+import { ToastModule } from 'primeng/toast';
+import {MessageService} from "primeng/api";
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +26,6 @@ import {DialogModule} from "primeng/dialog";
     ModalComponent,
     MapComponent,
     ChartComponent,
-    ModalPrimeComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,10 +37,13 @@ import {DialogModule} from "primeng/dialog";
     NgChartsModule,
     ButtonModule,
     FileUploadModule,
-    DialogModule
+    DialogModule,
+    InputTextModule,
+    ToastModule
+
 
   ],
-  providers: [MapService,ChartService],
+  providers: [MapService,ChartService,MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
