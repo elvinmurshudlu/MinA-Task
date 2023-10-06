@@ -4,6 +4,7 @@ import * as XLSX from 'xlsx';
 import {IData, IModifyData} from "../../Interfaces/Interface";
 import {ModalComponent} from "../modal/modal.component";
 import {MapService} from "../../services/map.service";
+import {ChartService} from "../../services/chart.service";
 
 @Component({
   selector: 'mina-table',
@@ -105,11 +106,84 @@ export class TableComponent implements AfterViewInit {
   }
 
 
-  constructor(private  mapService:MapService) {
+  constructor(private  mapService:MapService,private chartServ:ChartService) {
   }
 
   currentData(){
-    console.log(this.tabulatorTable.getData('visible'))
+    console.log(JSON.stringify(this.tabulatorTable.getData('visible')))
+
+  }
+
+  analysisOne(){
+    const filteredData : IData[] = this.tabulatorTable.getData('visible')
+
+    const counter:{[key:string]:any} = {total:0}
+
+    const data = []
+    const label = []
+
+    filteredData.forEach((data,i)=>{
+
+      if(counter[data.status]){
+        counter[data.status] +=1
+      }else {
+        counter[data.status] =1
+      }
+      counter['total'] +=1
+
+    })
+
+    for (let key in counter){
+
+      if (key !="total"){
+        let pergentage = (counter[key] / counter['total'])*100
+        let labelItem = key + ": " + pergentage +"%"
+        label.push(labelItem)
+        data.push(counter[key])
+      }
+
+    }
+
+    // console.log(counter,label,data)
+
+
+    this.chartServ.addChartDetails({type:'pie',data:data,labels:label})
+
+  }
+  analysisTwo(){
+    const filteredData : IData[] = this.tabulatorTable.getData('visible')
+
+    const counter:{[key:string]:any} = {}
+
+    const data = []
+    const label = []
+
+    filteredData.forEach((data,i)=>{
+
+      if(counter[data.status]){
+        counter[data.status] +=1
+      }else {
+        counter[data.status] = +(data.len || 0)
+      }
+      counter['total'] +=1
+
+    })
+
+    for (let key in counter){
+
+      if (key !="total"){
+        let pergentage = (counter[key] / counter['total'])*100
+        let labelItem = key + ": " + pergentage +"%"
+        label.push(labelItem)
+        data.push(counter[key])
+      }
+
+    }
+
+    // console.log(counter,label,data)
+
+
+    this.chartServ.addChartDetails({type:'bar',data:data,labels:label})
 
   }
 

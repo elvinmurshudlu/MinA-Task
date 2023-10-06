@@ -1,0 +1,29 @@
+  <ng-container *ngIf="selectedChart">
+
+
+    <ng-container *ngIf="selectedChart=='pie'">
+      <h1>Pie activlesdi</h1>
+      <canvas baseChart
+              [type]="'pie'"
+              [datasets]="chartDatasets"
+              [labels]="chartLabels"
+              [options]="pieChartOptions"
+              [plugins]="pieChartPlugins"
+              [legend]="pieChartLegend">
+      </canvas>
+    </ng-container>
+
+
+
+    <ng-container *ngIf="selectedChart=='bar'">
+      <canvas baseChart
+              [datasets]="chartDatasets"
+              [labels]="chartLabels"
+              [options]="barChartOptions"
+              [plugins]="barChartPlugins"
+              [legend]="barChartLegend"
+              [type]="'bar'">
+      </canvas>
+  </ng-container>
+
+
