@@ -52,7 +52,9 @@ export class TableComponent implements AfterViewInit {
 
   data :IData[] = []
   onFileChange(event: any) {
-    const file = event.target.files[0];
+    const file = event.files[0];
+
+
     if (file) {
       const reader = new FileReader();
       reader.onload = (e: any) => {
@@ -67,6 +69,11 @@ export class TableComponent implements AfterViewInit {
     }
   }
 
+
+  testUploadFunction(event:any){
+    console.log(event.files)
+
+  }
 
   addRow(event:IData){
     if(this.modalData == null){

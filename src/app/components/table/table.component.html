@@ -1,14 +1,21 @@
 <div>
 
-    <label >
-      Load Excel File
-      <input [ngStyle]="{display:'none'}" type="file" (change)="onFileChange($event)" accept=".xlsx">
-    </label>
-    <mina-modal  [data]="modalData" (onAddData)="addRow($event)"></mina-modal>
+<!--    <label class="p-button-info">-->
+<!--      Load Excel File-->
+<!--      <input [ngStyle]="{display:'none'}" type="file" (change)="onFileChange($event)" accept=".xlsx">-->
+<!--    </label>-->
+    <div class="d-flex p-3 gap-3">
+      <p-fileUpload  mode="basic" chooseLabel="Load Excel File" [auto]="true" url="https://www.primefaces.org/cdn/api/upload.php" accept=".xlsx"  (onUpload)="onFileChange($event)"></p-fileUpload>
+
+      <mina-modal  [data]="modalData" (onAddData)="addRow($event)"></mina-modal>
+    </div>
     <div #table>
     </div>
-  <button (click)="analysisOne()">Analiz 1</button>
-  <button (click)="analysisTwo()">Analiz 2</button>
+
+  <p-button (click)="analysisOne()" label="Analiz 1" styleClass="p-button-raised p-button-text p-button-warning"></p-button>
+  <p-button (click)="analysisTwo()" label="Analiz 2" styleClass="p-button-raised p-button-text p-button-help"></p-button>
+<!--  <button (click)="analysisOne()">Analiz 1</button>-->
+<!--  <button (click)="analysisTwo()">Analiz 2</button>-->
 </div>
 
 

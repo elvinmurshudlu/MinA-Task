@@ -26,6 +26,7 @@
     "ngx-bootstrap-multiselect": "^4.0.0",
     "ol": "^8.1.0",
     "primeicons": "^6.0.1",
+    "primeng": "^16.4.1",
     "rxjs": "~7.8.0",
     "tabulator-tables": "^5.5.2",
     "tslib": "^2.3.0",

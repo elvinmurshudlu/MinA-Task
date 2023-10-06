@@ -12,6 +12,9 @@ import {MapService} from "./services/map.service";
 import { NgChartsModule } from 'ng2-charts';
 import { ChartComponent } from './components/chart/chart.component';
 import {ChartService} from "./services/chart.service";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {ButtonModule} from "primeng/button";
+import {FileUploadModule} from "primeng/fileupload";
 
 @NgModule({
   declarations: [
@@ -23,11 +26,14 @@ import {ChartService} from "./services/chart.service";
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     NgbModule,
     NgxBootstrapMultiselectModule,
     FormsModule,
     ReactiveFormsModule,
-    NgChartsModule
+    NgChartsModule,
+    ButtonModule,
+    FileUploadModule
 
   ],
   providers: [MapService,ChartService],
