@@ -12,12 +12,21 @@ export class ChartComponent implements OnInit{
 
   constructor(private chartSer:ChartService) {
   }
+
   pieChartOptions: ChartOptions<'pie'> = {
     responsive: false,
   };
-  pieChartLegend = false;
+  pieChartLegend = true;
   pieChartPlugins = [];
 
+
+  barChartLegend = false;
+  barChartPlugins = [];
+
+  barChartOptions: ChartConfiguration<'bar'>['options'] = {
+    responsive: false,
+
+  };
 
 
   chartLabels:string[] = [ ];
@@ -33,22 +42,11 @@ export class ChartComponent implements OnInit{
       this.selectedChart = detail.type
       this.chartLabels = detail.labels;
       this.chartDatasets = [{data: detail.data}]
-      console.log(this.chartDatasets[0])
 
 
     })
   }
 
-
-  public barChartLegend = false;
-  public barChartPlugins = [];
-
-
-
-  public barChartOptions: ChartConfiguration<'bar'>['options'] = {
-    responsive: false,
-
-  };
 
 
 }

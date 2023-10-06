@@ -55,6 +55,7 @@ export class MapComponent implements AfterViewInit , OnInit  {
     this.view = new View({
       center: this.baku,
       zoom: 12,
+
     });
 
     this.map = new Map({
@@ -64,7 +65,8 @@ export class MapComponent implements AfterViewInit , OnInit  {
         }),
       ],
       target: this.mapContainer.nativeElement,
-      view: this.view
+      view: this.view,
+
     });
 
 

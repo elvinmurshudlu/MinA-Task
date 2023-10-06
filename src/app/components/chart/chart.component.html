@@ -1,8 +1,5 @@
   <ng-container *ngIf="selectedChart">
-
-
     <ng-container *ngIf="selectedChart=='pie'">
-      <h1>Pie activlesdi</h1>
       <canvas baseChart
               [type]="'pie'"
               [datasets]="chartDatasets"
@@ -12,8 +9,6 @@
               [legend]="pieChartLegend">
       </canvas>
     </ng-container>
-
-
 
     <ng-container *ngIf="selectedChart=='bar'">
       <canvas baseChart

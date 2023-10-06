@@ -109,10 +109,7 @@ export class TableComponent implements AfterViewInit {
   constructor(private  mapService:MapService,private chartServ:ChartService) {
   }
 
-  currentData(){
-    console.log(JSON.stringify(this.tabulatorTable.getData('visible')))
 
-  }
 
   analysisOne(){
     const filteredData : IData[] = this.tabulatorTable.getData('visible')
@@ -137,7 +134,7 @@ export class TableComponent implements AfterViewInit {
 
       if (key !="total"){
         let pergentage = (counter[key] / counter['total'])*100
-        let labelItem = key + ": " + pergentage +"%"
+        let labelItem = key + ": " + pergentage.toFixed(2) +"%"
         label.push(labelItem)
         data.push(counter[key])
       }

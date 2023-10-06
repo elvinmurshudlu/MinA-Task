@@ -1,7 +1,9 @@
 <div>
 
-    <input type="file" (change)="onFileChange($event)" accept=".xlsx">
-    <button (click)="currentData()">CurrentData</button>
+    <label >
+      Load Excel File
+      <input [ngStyle]="{display:'none'}" type="file" (change)="onFileChange($event)" accept=".xlsx">
+    </label>
     <mina-modal  [data]="modalData" (onAddData)="addRow($event)"></mina-modal>
     <div #table>
     </div>
