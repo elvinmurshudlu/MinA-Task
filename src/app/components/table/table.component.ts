@@ -161,22 +161,16 @@ export class TableComponent implements AfterViewInit {
     filteredData.forEach((data,i)=>{
 
       if(counter[data.status]){
-        counter[data.status] +=1
+        counter[data.status] += +(data.len || 0)
       }else {
         counter[data.status] = +(data.len || 0)
       }
-      counter['total'] +=1
 
     })
 
     for (let key in counter){
-
-      if (key !="total"){
-        let pergentage = (counter[key] / counter['total'])*100
-        let labelItem = key + ": " + pergentage +"%"
-        label.push(labelItem)
+        label.push(key)
         data.push(counter[key])
-      }
 
     }
 

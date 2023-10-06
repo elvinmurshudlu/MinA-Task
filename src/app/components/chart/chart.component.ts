@@ -15,7 +15,7 @@ export class ChartComponent implements OnInit{
   pieChartOptions: ChartOptions<'pie'> = {
     responsive: false,
   };
-  pieChartLegend = true;
+  pieChartLegend = false;
   pieChartPlugins = [];
 
 
