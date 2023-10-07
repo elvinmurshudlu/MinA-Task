@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject, Subject} from "rxjs";
 import {IData} from "../Interfaces/Interface";
-
 @Injectable({
   providedIn: 'root'
 })
@@ -23,8 +22,5 @@ export class ModalService {
     this.transferredData.next(data)
 
   }
-
-
-
 
 }

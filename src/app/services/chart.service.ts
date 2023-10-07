@@ -14,7 +14,6 @@ export class ChartService {
 
   constructor() { }
 
-
   addChartDetails(details:IChartInformation){
     this.chartInformation.next(details)
 

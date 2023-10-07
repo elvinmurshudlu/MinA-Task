@@ -2,11 +2,7 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
-  Input,
-  OnChanges,
   OnInit,
-  SimpleChanges,
-  TemplateRef,
   ViewChild
 } from '@angular/core';
 import Map from 'ol/Map.js';
@@ -38,17 +34,10 @@ export class MapComponent implements AfterViewInit , OnInit  {
 
   constructor(private mapService : MapService) {
   }
-
-
-
-
   ngOnInit() {
     this.mapService.wktCoordinates.subscribe(wkt=>{
-
-      this.renderWtkAndFly(wkt)
-
+      this.renderWktAndFly(wkt)
     })
-
   }
 
   ngAfterViewInit() {
@@ -74,8 +63,7 @@ export class MapComponent implements AfterViewInit , OnInit  {
 
   }
 
-
-  private renderWtkAndFly(wkt:string){
+  private renderWktAndFly(wkt:string){
 
 
     if(wkt != ''){
@@ -105,12 +93,10 @@ export class MapComponent implements AfterViewInit , OnInit  {
     }
   }
 
-
   private flyTo(){
     const zoom = this.view.getZoom() ||12;
     const duration = 2000;
     const extent = this.feature?.getGeometry()?.getExtent()
-
     if(extent){
       this.view.animate(
         {

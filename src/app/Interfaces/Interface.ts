@@ -1,7 +1,3 @@
-export interface IModifyData{
-  status:"new" | "modify",
-  data:IData
-}
 
 
 export interface IData {

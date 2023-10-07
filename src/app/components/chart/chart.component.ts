@@ -7,9 +7,7 @@ import {ChartService} from "../../services/chart.service";
   styleUrls: ['./chart.component.scss']
 })
 export class ChartComponent implements OnInit{
-
   selectedChart !:'pie' | 'bar' | null
-
   constructor(private chartSer:ChartService) {
   }
 
@@ -19,10 +17,8 @@ export class ChartComponent implements OnInit{
   pieChartLegend = true;
   pieChartPlugins = [];
 
-
   barChartLegend = false;
   barChartPlugins = [];
-
   barChartOptions: ChartConfiguration<'bar'>['options'] = {
     responsive: false,
 
@@ -35,15 +31,11 @@ export class ChartComponent implements OnInit{
   } ];
 
 
-
-
   ngOnInit() {
     this.chartSer.chartInformation.subscribe(detail=>{
       this.selectedChart = detail.type
       this.chartLabels = detail.labels;
       this.chartDatasets = [{data: detail.data}]
-
-
     })
   }
 

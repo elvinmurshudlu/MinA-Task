@@ -1,13 +1,6 @@
 import {
   Component,
-  ElementRef,
-  EventEmitter,
-  Input,
-  OnChanges,
   OnInit,
-  Output,
-  TemplateRef,
-  ViewChild
 } from '@angular/core';
 import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
 import {IMultiSelectOption, IMultiSelectSettings} from "ngx-bootstrap-multiselect";
@@ -48,8 +41,6 @@ export class ModalComponent implements   OnInit{
     { id: 1, name: '1' },
     { id: 2, name: '2' },
   ]
-
-
   selectSettings : IMultiSelectSettings = {
     checkedStyle:'glyphicon',
     selectionLimit:1,

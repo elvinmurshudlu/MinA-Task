@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject, Subject} from "rxjs";
+import { Subject} from "rxjs";
+import {MessageService} from "primeng/api";
 
 @Injectable({
   providedIn: 'root'
@@ -7,10 +8,14 @@ import {BehaviorSubject, Subject} from "rxjs";
 export class MapService {
 
   wktCoordinates = new Subject<string>()
-  constructor() { }
+  constructor(private messageService:MessageService) { }
 
 
   changeWkt(wkt:string){
+    if(wkt ===''){
+      this.messageService.add({ severity: 'warn', summary: 'No Wkt', detail: 'Wkt is not available!' });
+
+    }
     this.wktCoordinates.next(wkt)
   }
 }
