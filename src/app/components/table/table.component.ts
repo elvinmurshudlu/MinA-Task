@@ -34,7 +34,6 @@ export class TableComponent implements AfterViewInit {
     {title:'wkt',field:'wkt',headerFilter:'input'},
     {title:'status',field:'status',headerFilter:'input'},
     {title:"",formatter:this.geoMapIcon, width:40, hozAlign:"center",cellClick:(e,cell)=>{
-        // console.log(cell.getRow().getData()['wkt'])
         this.mapService.changeWkt(cell.getRow().getData()['wkt'])
 
       }},
@@ -43,11 +42,8 @@ export class TableComponent implements AfterViewInit {
 
       }},
     {title:'',formatter:this.editIcon, width:40, hozAlign:"center",cellClick:(e,cell)=>{
-
-
           this.modalData = cell.getRow().getData()
-
-        this.modalServ.setOpen(true,cell.getRow().getData())
+          this.modalServ.setOpen(true,cell.getRow().getData())
 
       }},
   ]
@@ -64,7 +60,6 @@ export class TableComponent implements AfterViewInit {
         const sheetName = workbook.SheetNames[0];
         const worksheet = workbook.Sheets[sheetName];
         this.data = (XLSX.utils.sheet_to_json(worksheet, )).reverse() as  IData[];
-        console.log(this.data[0])
         this.generateTable()
       };
       reader.readAsBinaryString(file);
