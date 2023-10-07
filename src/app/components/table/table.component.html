@@ -1,5 +1,5 @@
-<div>
-    <div class="d-flex p-3 gap-3">
+<div class="p-0 p-md-3 pr-0">
+    <div class="d-flex p-3  gap-3">
       <p-fileUpload  mode="basic" chooseLabel="Load Excel File" [auto]="true" url="https://www.primefaces.org/cdn/api/upload.php" accept=".xlsx"  (onUpload)="onFileChange($event)"></p-fileUpload>
       <p-button  (click)="openModal()" label="Add New Data"  styleClass="p-button-help"></p-button>
     </div>
